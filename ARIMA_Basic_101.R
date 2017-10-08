@@ -4,6 +4,7 @@ library(survey)
 library(plyr)
 library(tseries)
 setwd("C:/Users/Christopher/Documents/Projects/Project - Economic Machine")
+ 
 
 d <- read.csv("VIX.CSV")
 # Interestdata <- read.csv("FRB_H15.CSV")
