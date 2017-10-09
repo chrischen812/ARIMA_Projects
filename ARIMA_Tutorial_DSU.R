@@ -1,4 +1,5 @@
-#Information from https://www.datascience.com/blog/introduction-to-forecasting-with-arima-in-r-learn-data-science-tutorials
+#Information from 
+#https://www.datascience.com/blog/introduction-to-forecasting-with-arima-in-r-learn-data-science-tutorials
 
 
 library('ggplot2')
@@ -39,8 +40,10 @@ ggplot() +
 #Step 4 The building blocks of a time series analysis are seasonality, trend, and cycle. 
 count_ma = ts(na.omit(daily_data$cnt_ma), frequency=30)
 decomp = stl(count_ma, s.window="periodic")
+#decomp2 = decompose(count_ma,type="mult")
 deseasonal_cnt <- seasadj(decomp)
 plot(decomp)
+#plot(decomp2)
 
 #Step 5 The augmented Dickey-Fuller (ADF) test is a formal statistical test for stationarity.
 adf.test(count_ma, alternative = "stationary")
@@ -57,10 +60,13 @@ plot(count_d1)
 adf.test(count_d1, alternative = "stationary")
 
 
+
 #Step 8 Spikes at particular lags of the differenced series can help inform the choice of p or q for our model:
 
 Acf(count_d1, main='ACF for Differenced Series')
+#ACF plots display correlation between a series and its lags. 
 Pacf(count_d1, main='PACF for Differenced Series')
+#PACF plots display correlation between a variable and its lags that is not explained by previous lags. 
 
 #There are significant auto correlations at lag 1 and 2 and beyond. Partial correlation plots show a significant spike at lag 1 and 7. This suggests that we might want to test models with AR or MA components of order 1, 2, or 7. A spike at lag 7 might suggest that there is a seasonal pattern present, perhaps as day of the week. We talk about how to choose model order in the next step.
 
@@ -74,7 +80,7 @@ auto.arima(deseasonal_cnt, seasonal=FALSE)
 #Step 10 Examining ACF and PACF plots for model residuals. If model order parameters and structure are correctly specified, we would expect no significant autocorrelations present. 
 
 fit<-auto.arima(deseasonal_cnt, seasonal=FALSE)
-tsdisplay(residuals(fit), lag.max=45, main='(1,1,1) Model Residuals')
+tsdisplay(residuals(fit), lag.max=15, main='(1,1,1) Model Residuals')
 
 #There is a clear pattern present in ACF/PACF and model residuals plots repeating at lag 7. This suggests that our model may be better off with a different specification, such as p = 7 or q = 7. 
 
@@ -114,11 +120,22 @@ fit_w_seasonality
 seas_fcast <- forecast(fit_w_seasonality, h=30)
 plot(seas_fcast)
 
+tsdisplay(residuals(fit_w_seasonality), lag.max=15, main='Seasonal Model Residuals')
 
 
 
 
 
 
+
+#Test with "hold-out" set and seasonality adjustment
+
+fit_w_seasonality_no_holdout = auto.arima(deseasonal_cnt[-c(700:725)], seasonal=TRUE)
+
+
+fcast_w_seasonality_no_holdout <- forecast(fit_w_seasonality_no_holdout, h=25)
+
+plot(fcast_w_seasonality_no_holdout)
+lines(ts(deseasonal_cnt))
 
 
