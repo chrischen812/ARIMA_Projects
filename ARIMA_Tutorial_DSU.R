@@ -14,7 +14,7 @@ daily_data = read.csv('day.csv', header=TRUE, stringsAsFactors=FALSE)
 daily_data$Date = as.Date(daily_data$dteday)
 
 ggplot(daily_data, aes(Date, cnt)) + geom_line() + scale_x_date('month')  + ylab("Daily Bike Checkouts") + xlab("")
-
+ 
 
 
 #Step 2 Using the ts() command to create a time series object to pass to tsclean()
@@ -114,7 +114,7 @@ fit_w_seasonality
 seas_fcast <- forecast(fit_w_seasonality, h=30)
 plot(seas_fcast)
 
-#Step 15 
+
 
 
 
