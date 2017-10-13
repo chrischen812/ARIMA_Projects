@@ -6,7 +6,7 @@ library('ggplot2')
 library('forecast')
 library('tseries')
 
-setwd("C:/Users/Christopher/Documents/Projects/Project - Economic Machine")
+setwd("C:/Users/Christopher/Documents/Projects/GitHub R/ARIMA_Projects/")
 
 daily_data = read.csv('day.csv', header=TRUE, stringsAsFactors=FALSE)
 
@@ -87,7 +87,7 @@ tsdisplay(residuals(fit), lag.max=15, main='(1,1,1) Model Residuals')
 
 #Step 11 Refitting with MA(7) component and examine diagnostic plots again.
 
-fit2 = arima(deseasonal_cnt, order=c(1,1,7))
+fit2 = arima(deseasonal_cnt, order=c(7,1,7))
 
 fit2
 
@@ -111,7 +111,7 @@ lines(ts(deseasonal_cnt))
 #Recall that the model is assuming a series with no seasonality, and is differencing the original non-stationary data. In other words, plotted predictions are based on the assumption that there will be no other seasonal fluctuations in the data and the change in number of bicycles from one day to another is more or less constant in mean and variance. This forecast may be a naive model, but it illustrates the process of choosing an ARIMA model and could also serve as a benchmark to grade against as more complex models are built.
 
 
-#Step 14 Forecast Imprvoement. One simple change is to add back the seasonal component we extracted earlier. Another approach would be to allow for (P, D, Q) components to be included to the model, which is a default in the auto.arima() function.
+#Step 14 Forecast Improvement. One simple change is to add back the seasonal component we extracted earlier. Another approach would be to allow for (P, D, Q) components to be included to the model, which is a default in the auto.arima() function.
 
 fit_w_seasonality = auto.arima(deseasonal_cnt, seasonal=TRUE)
 fit_w_seasonality
