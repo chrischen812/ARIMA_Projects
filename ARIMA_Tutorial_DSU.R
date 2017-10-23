@@ -6,6 +6,7 @@ library('ggplot2')
 library('forecast')
 library('tseries')
 
+
 setwd("C:/Users/Christopher/Documents/Projects/GitHub R/ARIMA_Projects/")
 
 daily_data = read.csv('day.csv', header=TRUE, stringsAsFactors=FALSE)
@@ -58,8 +59,7 @@ Pacf(count_ma, main='')
 count_d1 = diff(deseasonal_cnt, differences = 1)
 plot(count_d1)
 adf.test(count_d1, alternative = "stationary")
-
-
+#ndiffs(deseasonal_cnt, alpha=0.05, test = c("adf"))
 
 #Step 8 Spikes at particular lags of the differenced series can help inform the choice of p or q for our model:
 

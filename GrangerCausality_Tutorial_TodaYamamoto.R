@@ -36,7 +36,7 @@ legend("topright",c("Arabica","Robusta"),col=c("black","blue"),lty=c(1,2),lwd=c(
 adf.test(cof$Arabica)
 adf.test(cof$Robusta)
 kpss.test(cof$Arabica)
-kpss.test(cof$Arabica)
+kpss.test(cof$Robusta)
 
 adf.test(diff(cof$Arabica,1))
 adf.test(diff(cof$Robusta,1))

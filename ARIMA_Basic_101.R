@@ -3,8 +3,8 @@ rm(list=ls())
 library(survey)
 library(plyr)
 library(tseries)
-setwd("C:/Users/Christopher/Documents/Projects/Project - Economic Machine")
- 
+setwd("C:/Users/Christopher/Documents/Projects/GitHub R/ARIMA_Projects/")
+
 
 d <- read.csv("VIX.CSV")
 # Interestdata <- read.csv("FRB_H15.CSV")

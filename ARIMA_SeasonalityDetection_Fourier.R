@@ -5,7 +5,7 @@
 library(TSA)
 
 # read the Google Analaytics PageView report
-setwd("C:/Users/cchen101/Documents/SampleCodes/ARIMA")
+setwd("C:/Users/Christopher/Documents/Projects/GitHub R/ARIMA_Projects/")
 raw = read.csv("20131120-20151110-google-analytics.csv")
 
 # compute the Fourier Transform
