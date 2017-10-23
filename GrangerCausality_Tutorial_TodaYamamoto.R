@@ -2,7 +2,7 @@
 #https://datazen.info/toda-yamamoto-implementation-in-r/
 
 
-library(fUnitRoots)
+library(tseries)
 library(urca)
 library(vars)
 library(aod)
@@ -17,7 +17,7 @@ cof = read.csv("Coffee_Data.csv", header=T, sep=",")
 names(cof)
 
 #Adjust Date format
-cof["X"]&lt;-paste(sub("M","-",cof$Date),"-01",sep="")
+cof["Date"] =paste(sub("M","-",cof$Date),"-01",sep="")
 
 #Visualize
 plot(as.Date(cof$Date),cof$Arabica,type="l",col="black",lwd=2)
@@ -25,7 +25,7 @@ lines(as.Date(cof$Date),cof$Robusta,col="blue",lty=2,lwd=1)
 legend("topleft",c("Arabica","Robusta"),col=c("black","blue"),lty=c(1,2),lwd=c(2,1),bty="n")
 
 #Possible structural break in 1970s. Therefore only values from 1976:01 onwards are regarded
-cof1&lt;-cof[193:615,]
+cof1 = cof[193:615,]
 
 #Visualize
 plot(as.Date(cof1$Date),cof1$Arabica,type="l",col="black",lwd=2,ylim=range(cof1$Robusta))
@@ -51,11 +51,11 @@ kpss.test(diff(cof$Robusta,1))
 VARselect(cof1[,2:3],lag=20,type="both")
 
 #VAR Model, lag=2
-V.2&lt;-VAR(cof1[,2:3],p=2,type="both")
+V.2 = VAR(cof1[,2:3],p=2,type="both")
 serial.test(V.2)
 
 #VAR-Model, lag=6
-V.6&lt;-VAR(cof1[,2:3],p=6,type="both")
+V.6 = VAR(cof1[,2:3],p=6,type="both")
 serial.test(V.6)
 
 #Stability analysis
@@ -72,7 +72,7 @@ plot(stability(V.6)) ## looks fine
 # variables is a little more tricky
 
 #VAR-Model, lag=7 (additional lag, though not tested)
-V.7&lt;-VAR(cof1[,2:3],p=7,type="both")
+V.7 = VAR(cof1[,2:3],p=7,type="both")
 V.7$varresult
 summary(V.7)
 
