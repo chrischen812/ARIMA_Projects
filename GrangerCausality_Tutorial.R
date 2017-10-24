@@ -4,11 +4,11 @@
 
 #Model 1 is the unrestricted model that includes the Granger-causal terms.
 #Model 2 is the restricted model where the Granger-causal terms are omitted.
-#The test is a Wald test that assesses whether using the restricted Model 2 in place of Model 1 makes statistical sense (roughly speaking).
+#The test is a Wald test that assesses whether using the restricted Model 2 in place of Model 1 makes statistical sense.
 
 #You interpret the results as follows:
   
-#if Pr(>F)<α<α (where αα is your desired level of significance), you reject the null hypothesis of no Granger causality. This indicates that Model 2 is too restrictive as compared with Model 1.
+#if Pr(>F)<α (where α is your desired level of significance), you reject the null hypothesis of no Granger causality. This indicates that Model 2 is too restrictive as compared with Model 1.
 #If the inequality is reversed, you do not reject the null hypothesis as the richer Model 1 is preferred to the restricted Model 2.
 
 #Note: A more precise statement would be we are checking to see if including xx is useful for predicting yy when yy's own history is already being used for prediction. That is, do not miss the fact the xx has to be useful beyond (or extra to) the own history of yy.
@@ -16,6 +16,7 @@ setwd("C:/Users/Christopher/Documents/Projects/GitHub R/ARIMA_Projects/")
 #rm(list=ls())
 
 library(forecast)
+library(lmtest)
 
 #Load data
 cof = read.csv("Coffee_Data.csv", header=T, sep=",")
